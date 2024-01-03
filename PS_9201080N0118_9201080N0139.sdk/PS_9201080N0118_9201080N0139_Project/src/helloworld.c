@@ -3,124 +3,124 @@
 //#include "platform.h"
 #include "xil_printf.h"
 
-//¸÷ÖÖ³õÊ¼»¯
-//ÉèÖÃMIOÒı½ÅµØÖ·
+//å„ç§åˆå§‹åŒ–
+//è®¾ç½®MIOå¼•è„šåœ°å€
 #define MIO_PIN_07		(*(volatile unsigned int *)0xF800071C)
 #define MIO_PIN_50		(*(volatile unsigned int *)0xF80007C8)
 #define MIO_PIN_51		(*(volatile unsigned int *)0xF80007CC)
 
-//ÉèÖÃGPIO¶Ë¿Ú·½Ïò¼Ä´æÆ÷µØÖ·
+//è®¾ç½®GPIOç«¯å£æ–¹å‘å¯„å­˜å™¨åœ°å€
 #define DIRM_0			(*(volatile unsigned int *)0xE000A204)
 #define DIRM_1			(*(volatile unsigned int *)0xE000A244)
 #define DIRM_2			(*(volatile unsigned int *)0xE000A284)
 #define DIRM_3			(*(volatile unsigned int *)0xE000A2C4)
-//ÉèÖÃGPIO¶Ë¿ÚÊä³öÊ¹ÄÜ¼Ä´æÆ÷µØÖ·
+//è®¾ç½®GPIOç«¯å£è¾“å‡ºä½¿èƒ½å¯„å­˜å™¨åœ°å€
 #define OEN_0			(*(volatile unsigned int *)0xE000A208)
 #define OEN_1			(*(volatile unsigned int *)0xE000A248)
 #define OEN_2			(*(volatile unsigned int *)0xE000A288)
 #define OEN_3			(*(volatile unsigned int *)0xE000A2C8)
-//ÉèÖÃGPIO¶Ë¿ÚÊä³ö¼Ä´æÆ÷µØÖ·
+//è®¾ç½®GPIOç«¯å£è¾“å‡ºå¯„å­˜å™¨åœ°å€
 #define DATA_0			(*(volatile unsigned int *)0xE000A040)
 #define DATA_1			(*(volatile unsigned int *)0xE000A044)
 #define DATA_2			(*(volatile unsigned int *)0xE000A048)
 #define DATA_3			(*(volatile unsigned int *)0xE000A04C)
-//ÉèÖÃGPIO¶Ë¿ÚÊäÈë¼Ä´æÆ÷µØÖ·
+//è®¾ç½®GPIOç«¯å£è¾“å…¥å¯„å­˜å™¨åœ°å€
 #define DATA_0_RO		(*(volatile unsigned int *)0xE000A060)
 #define DATA_1_RO		(*(volatile unsigned int *)0xE000A064)
 #define DATA_2_RO		(*(volatile unsigned int *)0xE000A068)
 #define DATA_3_RO		(*(volatile unsigned int *)0xE000A06C)
 
-//ÉèÖÃUART1Òı½ÅµØÖ·µÄºê¶¨Òå
+//è®¾ç½®UART1å¼•è„šåœ°å€çš„å®å®šä¹‰
 #define rMIO_PIN_48		(*(volatile unsigned long*)0xF80007C0)
 #define rMIO_PIN_49 	(*(volatile unsigned long*)0xF80007C4)
 #define rUART_CLK_CTRL 	(*(volatile unsigned long*)0xF8000154)
 #define rControl_reg0 	(*(volatile unsigned long*)0xE0001000)
 #define rMode_reg0 		(*(volatile unsigned long*)0xE0001004)
-//ÉèÖÃ UART1¶Ë¿Ú²¨ÌØÂÊµÈ²ÎÊıµØÖ·¼Ä´æÆ÷µÄºê¶¨Òå
+//è®¾ç½® UART1ç«¯å£æ³¢ç‰¹ç‡ç­‰å‚æ•°åœ°å€å¯„å­˜å™¨çš„å®å®šä¹‰
 #define rBaud_rate_gen_reg0     (*(volatile unsigned long*)0xE0001018)
 #define rBaud_rate_divider_reg0 (*(volatile unsigned long*)0xE0001034)
 #define rTx_Rx_FIFO0            (*(volatile unsigned long*)0xE0001030)
 #define rChannel_sts_reg0       (*(volatile unsigned long*)0xE000102C)
 
-//¸÷ÖÖ¹¦ÄÜº¯Êı
-void arm(int Arm_id,int Arm_dir);                       //»úĞµ±Û
-void box(void);                                         //Ïä×Ó
-void plate(int Plate_ID,int Plate_dir);                 //ÎüÅÌ
-void trans(int Trans_dir);                              //´«ËÍ´ø
-void auto_ctl(void);                                    //×Ô¶¯Ä£Ê½
-void displayOnLED(int num);						        //Õ¹Ê¾ÔÚLEDÉÏ
+//å„ç§åŠŸèƒ½å‡½æ•°
+void arm(int Arm_id,int Arm_dir);                       //æœºæ¢°è‡‚
+void box(void);                                         //ç®±å­
+void plate(int Plate_ID,int Plate_dir);                 //å¸ç›˜
+void trans(int Trans_dir);                              //ä¼ é€å¸¦
+void auto_ctl(void);                                    //è‡ªåŠ¨æ¨¡å¼
+void displayOnLED(int num);						        //å±•ç¤ºåœ¨LEDä¸Š
 
-void send_Char_9(unsigned char modbus[]);				//9×Ö½Ú´®¿Ú·¢ËÍº¯Êı
-void send_Char(unsigned char data);						//µ¥×Ö½Ú´®¿Ú·¢ËÍº¯Êı
-void RS232_Init();										//´®¿Ú³õÊ¼»¯º¯Êı
+void send_Char_9(unsigned char modbus[]);				//9å­—èŠ‚ä¸²å£å‘é€å‡½æ•°
+void send_Char(unsigned char data);						//å•å­—èŠ‚ä¸²å£å‘é€å‡½æ•°
+void RS232_Init();										//ä¸²å£åˆå§‹åŒ–å‡½æ•°
 
-void delay(int i,int n,int m);							//ÑÓÊ±º¯Êı
+void delay(int i,int n,int m);							//å»¶æ—¶å‡½æ•°
 
-//Ò»Ğ©È«¾Ö±äÁ¿
-//ÓÃÓÚ¸´Î»£¬¼ÇÂ¼ÔËĞĞ¹ıµÄ²½Êı
+//ä¸€äº›å…¨å±€å˜é‡
+//ç”¨äºå¤ä½ï¼Œè®°å½•è¿è¡Œè¿‡çš„æ­¥æ•°
 int step_count = 0;
-//ÓÃÓÚ¸´Î»£¬¼ÇÂ¼½øĞĞ¹ıµÄ²Ù×÷
+//ç”¨äºå¤ä½ï¼Œè®°å½•è¿›è¡Œè¿‡çš„æ“ä½œ
 unsigned char reverse_opt[200][9];
-//×Ô¶¯Ä£Ê½×¥ÎïÌåµÄ´ÎÊı
+//è‡ªåŠ¨æ¨¡å¼æŠ“ç‰©ä½“çš„æ¬¡æ•°
 int grabCount = 0;
-//2ºÅ´«ËÍ´øÊÇ·ñ¿ª£¬Ä¬ÈÏ¹Ø£¬´ò¿ªºóÖÃtrue
+//2å·ä¼ é€å¸¦æ˜¯å¦å¼€ï¼Œé»˜è®¤å…³ï¼Œæ‰“å¼€åç½®true
 bool isTransOn = false;
 
-//Ö÷º¯Êı£¬ÊµÏÖÒªÇóµÄ¸÷ÖÖ¹¦ÄÜ
+//ä¸»å‡½æ•°ï¼Œå®ç°è¦æ±‚çš„å„ç§åŠŸèƒ½
 int main(){
-    u32 flag;		//±äÁ¿flag¼ÇÂ¼SW0~SW7°´¼üµÄĞÅÏ¢
-    //×¢£ºÏÂÃæMIOÒı½ÅºÍEMIOÒı½ÅµÄĞòºÅÊÇÍ³Ò»±àºÅµÄ£¬MIOĞòºÅÎª0~31¼°32~53£¬EMIOĞòºÅÎª54~85¼°86~117
-    //ÅäÖÃ¼°³õÊ¼»¯MIO07Òı½ÅµÄÏà¹Ø¼Ä´æÆ÷£¬MIO07×÷ÎªLEDµÆ¿ØÖÆµÄÊä³öÒı½Å
+    u32 flag;		//å˜é‡flagè®°å½•SW0~SW7æŒ‰é”®çš„ä¿¡æ¯
+    //æ³¨ï¼šä¸‹é¢MIOå¼•è„šå’ŒEMIOå¼•è„šçš„åºå·æ˜¯ç»Ÿä¸€ç¼–å·çš„ï¼ŒMIOåºå·ä¸º0~31åŠ32~53ï¼ŒEMIOåºå·ä¸º54~85åŠ86~117
+    //é…ç½®åŠåˆå§‹åŒ–MIO07å¼•è„šçš„ç›¸å…³å¯„å­˜å™¨ï¼ŒMIO07ä½œä¸ºLEDç¯æ§åˆ¶çš„è¾“å‡ºå¼•è„š
     MIO_PIN_07 = 0x00003600;
     DIRM_0 = DIRM_0|0x00000080;
     OEN_0 = OEN_0|0x00000080;
-    //ÅäÖÃ¼°³õÊ¼»¯MIO50¡¢MIO51Òı½ÅµÄÏà¹Ø¼Ä´æÆ÷£¬MIO50¡¢MIO51×÷Îª°´¼üÊäÈëÒı½Å
+    //é…ç½®åŠåˆå§‹åŒ–MIO50ã€MIO51å¼•è„šçš„ç›¸å…³å¯„å­˜å™¨ï¼ŒMIO50ã€MIO51ä½œä¸ºæŒ‰é”®è¾“å…¥å¼•è„š
     MIO_PIN_50 = 0x00003600;
     MIO_PIN_51 = 0x00003600;
     DIRM_1 = DIRM_1 & 0xFFF3FFFF;
-    //³õÊ¼»¯EMIO54~EMIO58µÄÒı½Å£¬¶ÔÓ¦BTNU¡¢BTND¡¢BTNL¡¢BTNR¡¢BTNC°´¼üµÄÊäÈë
+    //åˆå§‹åŒ–EMIO54~EMIO58çš„å¼•è„šï¼Œå¯¹åº”BTNUã€BTNDã€BTNLã€BTNRã€BTNCæŒ‰é”®çš„è¾“å…¥
     DIRM_2 = DIRM_2 & 0xFFFFFFE0;
-    //³õÊ¼»¯EMIO59~EMIO66µÄÒı½Å£¬¶ÔÓ¦SW7~SW0²¦¶¯¿ª¹ØµÄÊäÈë
+    //åˆå§‹åŒ–EMIO59~EMIO66çš„å¼•è„šï¼Œå¯¹åº”SW7~SW0æ‹¨åŠ¨å¼€å…³çš„è¾“å…¥
     DIRM_2 = DIRM_2 & 0xFFFFE01F;
-    //³õÊ¼»¯EMIO67~EMIO74µÄÒı½Å£¬¶ÔÓ¦LED7~LED0µÄÊä³ö
+    //åˆå§‹åŒ–EMIO67~EMIO74çš„å¼•è„šï¼Œå¯¹åº”LED7~LED0çš„è¾“å‡º
     DIRM_2 = DIRM_2|0x001FE000;
     OEN_2 = OEN_2|0x001FE000;
 
-    //³õÊ¼»¯UART1
+    //åˆå§‹åŒ–UART1
     RS232_Init();
 
-    //¼ÇÂ¼²Ù×÷ĞÅÏ¢µÄ·´²Ù×÷
+    //è®°å½•æ“ä½œä¿¡æ¯çš„åæ“ä½œ
 
     int i = 0;
     int j = 0;
     for(i = 0;i<200;i++) reverse_opt[i][0] = '#';
-    for(i = 0;i<200;i++) reverse_opt[i][1] = '1'; //1ºÅ»úĞµ±Û
+    for(i = 0;i<200;i++) reverse_opt[i][1] = '1'; //1å·æœºæ¢°è‡‚
     for(i = 0;i<200;i++){
         for(j = 2;j<9;j++){
             reverse_opt[i][j] = '0';
         }
     }
-    step_count = 0;						//½ö¼ÇÂ¼»úĞµ±ÛÏà¹Ø£¨°üÀ¨¹ìµÀ£©µÄ²Ù×÷Êı
+    step_count = 0;						//ä»…è®°å½•æœºæ¢°è‡‚ç›¸å…³ï¼ˆåŒ…æ‹¬è½¨é“ï¼‰çš„æ“ä½œæ•°
 
     while(1) {
-        //¶ÁÈ¡SW[7:6]µÄÊäÈëĞÅÏ¢£¬ÊäÈëĞÅÏ¢Í¨¹ıDATA_N_RO»ñÈ¡£¬SW[7:6]Î»ÓÚEMIO59-60ÉÏ£¬²éÊéµÃÔÚDATA_2_ROµÄ6¡¢7Î»£¬¶ÔÓ¦0110 0000£¬Óë0x60
+        //è¯»å–SW[7:6]çš„è¾“å…¥ä¿¡æ¯ï¼Œè¾“å…¥ä¿¡æ¯é€šè¿‡DATA_N_ROè·å–ï¼ŒSW[7:6]ä½äºEMIO59-60ä¸Šï¼ŒæŸ¥ä¹¦å¾—åœ¨DATA_2_ROçš„6ã€7ä½ï¼Œå¯¹åº”0110 0000ï¼Œä¸0x60
         flag = DATA_2_RO & 0x00000060;
-        //¸ù¾İSW[7:6]Ñ¡Ôñ´¦ÀíµÄ×´Ì¬£¬¹æ¶¨£º00¸´Î»£¬10ÊÖ¶¯£¬01×Ô¶¯£¬11Ê¾½Ì
+        //æ ¹æ®SW[7:6]é€‰æ‹©å¤„ç†çš„çŠ¶æ€ï¼Œè§„å®šï¼š00å¤ä½ï¼Œ10æ‰‹åŠ¨ï¼Œ01è‡ªåŠ¨ï¼Œ11ç¤ºæ•™
         switch (flag) {
-            case 0x00:                            //¸´Î»Ä£Ê½
-                DATA_2 = DATA_2 & 0xFFE01FFF;        //Ö¸Ê¾µÆLED7~LED0È«Ãğ
-                //BTNU-BTNC¶ÔÓ¦EMIO54-58£¬¼´DATA_2_ROµÄµÍ5Î»£¬Óë0001 1111¼´0x1F
-                //0x01£ºBTNU, 0x02:BTND, 0x04:BTNL, 0x08:BTNR, 0x10:BTNC
-                u32 flag_button = DATA_2_RO & 0x0000001F;       //È¡BTNU,BTND,BTNL,BTNR,BTNC°´¼ü
-                if (flag_button == 0x00000010) {                //ÅĞ¶ÏBTNC°´¼üÊÇ·ñ°´ÏÂ
-                    DATA_0 = DATA_0 | 0x00000080;               //LED9ÁÁ
-                    delay(1000, 500, 50);              //ÑÓÊ±Ïû¶¶
+            case 0x00:                            //å¤ä½æ¨¡å¼
+                DATA_2 = DATA_2 & 0xFFE01FFF;        //æŒ‡ç¤ºç¯LED7~LED0å…¨ç­
+                //BTNU-BTNCå¯¹åº”EMIO54-58ï¼Œå³DATA_2_ROçš„ä½5ä½ï¼Œä¸0001 1111å³0x1F
+                //0x01ï¼šBTNU, 0x02:BTND, 0x04:BTNL, 0x08:BTNR, 0x10:BTNC
+                u32 flag_button = DATA_2_RO & 0x0000001F;       //å–BTNU,BTND,BTNL,BTNR,BTNCæŒ‰é”®
+                if (flag_button == 0x00000010) {                //åˆ¤æ–­BTNCæŒ‰é”®æ˜¯å¦æŒ‰ä¸‹
+                    DATA_0 = DATA_0 | 0x00000080;               //LED9äº®
+                    delay(1000, 500, 50);              //å»¶æ—¶æ¶ˆæŠ–
                     flag_button = DATA_2_RO & 0x0000001F;
-                    while (flag_button == 0x00000010) {            //ÅĞ¶ÏBTNC°´¼üÊÇ·ñÌ§Æğ
+                    while (flag_button == 0x00000010) {            //åˆ¤æ–­BTNCæŒ‰é”®æ˜¯å¦æŠ¬èµ·
                         flag_button = DATA_2_RO & 0x0000001F;
                     }
-                    DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9µÆÃğ
-                    //¸´Î»
+                    DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9ç¯ç­
+                    //å¤ä½
                     if (step_count) {
                         step_count--;
                         int k, m;
@@ -141,40 +141,40 @@ int main(){
                 }
                 break;
 
-            case 0x20:                                            //ÊÖ¶¯¿ØÖÆÄ£Ê½
-                DATA_2 = (DATA_2 | 0x00002000) & 0xFFFFBFFF;        //LED7ÁÁ¡¢LED6Ãğ
-                // SW[2:5]= 0-5Ê±£¬¶ÔÓ¦1-6ºÅ»úĞµ±Û£¬0110µ¼¹ì£¬0111ÎüÅÌ£¬1000Ïä×Ó£¬1001´«ËÍ´ø
-                // DATA_2_ROµÄ8-11Î»£¬µÍ8¶ÔÓ¦2£¬9¶ÔÓ¦3...
-                //SW[2:5]¶ÔÓ¦EMIO61-64 DATA_2_ROµÄ8-11Î» 0111 1000 0000 = 0x780
-                flag = DATA_2_RO & 0x00000780;                  //È¡SW2,3,4,5À´¾ö¶¨ÊÇÄÄÒ»ÖÖÄ£Ê½£¬»úĞµ±Û/¹ìµÀ/ÎüÅÌ/Ïä×Ó/´«ËÍ´ø
-                // µÍ5Î»·Ö±ğ¶ÔÓ¦°´¼üBTNU¡¢BTND¡¢BTNL¡¢BTNR¡¢BTNC£¬BTNU-BTNC¶ÔÓ¦EMIO54-58£¬¼´DATA_2_ROµÄµÍ5Î»£¬Óë0001 1111¼´0x1F
-                flag_button = DATA_2_RO & 0x0000001F;       //È¡BTNU,BTND,BTNL,BTNR,BTNC°´¼ü
+            case 0x20:                                            //æ‰‹åŠ¨æ§åˆ¶æ¨¡å¼
+                DATA_2 = (DATA_2 | 0x00002000) & 0xFFFFBFFF;        //LED7äº®ã€LED6ç­
+                // SW[2:5]= 0-5æ—¶ï¼Œå¯¹åº”1-6å·æœºæ¢°è‡‚ï¼Œ0110å¯¼è½¨ï¼Œ0111å¸ç›˜ï¼Œ1000ç®±å­ï¼Œ1001ä¼ é€å¸¦
+                // DATA_2_ROçš„8-11ä½ï¼Œä½8å¯¹åº”2ï¼Œ9å¯¹åº”3...
+                //SW[2:5]å¯¹åº”EMIO61-64 DATA_2_ROçš„8-11ä½ 0111 1000 0000 = 0x780
+                flag = DATA_2_RO & 0x00000780;                  //å–SW2,3,4,5æ¥å†³å®šæ˜¯å“ªä¸€ç§æ¨¡å¼ï¼Œæœºæ¢°è‡‚/è½¨é“/å¸ç›˜/ç®±å­/ä¼ é€å¸¦
+                // ä½5ä½åˆ†åˆ«å¯¹åº”æŒ‰é”®BTNUã€BTNDã€BTNLã€BTNRã€BTNCï¼ŒBTNU-BTNCå¯¹åº”EMIO54-58ï¼Œå³DATA_2_ROçš„ä½5ä½ï¼Œä¸0001 1111å³0x1F
+                flag_button = DATA_2_RO & 0x0000001F;       //å–BTNU,BTND,BTNL,BTNR,BTNCæŒ‰é”®
                 switch (flag) {
-                    case 0x000:       //µÚÒ»¸öÖá
-                        //LED7-0 EMIO67-74 DATA_2_RO 14Î»-22Î» 0011 1111 1100 0000 0000 0000 = 0x38C000
-                        //DATA_2[14]=1£¬½öLED7ÁÁ
+                    case 0x000:       //ç¬¬ä¸€ä¸ªè½´
+                        //LED7-0 EMIO67-74 DATA_2_RO 14ä½-22ä½ 0011 1111 1100 0000 0000 0000 = 0x38C000
+                        //DATA_2[14]=1ï¼Œä»…LED7äº®
                         DATA_2 = (DATA_2 | 0x00002000) & 0x00002FFF;
-                        if (flag_button == 0x00000004) {            //ÅĞ¶ÏBTNL°´¼üÊÇ·ñ°´ÏÂ
-                            DATA_0 = DATA_0 | 0x00000080;        //LED9Ö¸Ê¾µÆÁÁ
-                            delay(1000, 500, 50);                    //ÑÓÊ±Ô¼1Ãë£¬½øĞĞÏû¶¶¶¯´¦Àí
+                        if (flag_button == 0x00000004) {            //åˆ¤æ–­BTNLæŒ‰é”®æ˜¯å¦æŒ‰ä¸‹
+                            DATA_0 = DATA_0 | 0x00000080;        //LED9æŒ‡ç¤ºç¯äº®
+                            delay(1000, 500, 50);                    //å»¶æ—¶çº¦1ç§’ï¼Œè¿›è¡Œæ¶ˆæŠ–åŠ¨å¤„ç†
                             flag_button = DATA_2_RO & 0x0000001F;
-                            while (flag_button == 0x00000004) {    //ÅĞ¶ÏBTNL°´¼üÊÇ·ñÌ§Æğ
+                            while (flag_button == 0x00000004) {    //åˆ¤æ–­BTNLæŒ‰é”®æ˜¯å¦æŠ¬èµ·
                                 flag_button = DATA_2_RO & 0x0000001F;
                             }
-                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //BTNLÌ§Æğ£¬LED9Ö¸Ê¾µÆÃğ
-                            //»úĞµ±ÛË³Ê±Õë£¬×ªËÙ½Ç¶ÈÎª3
+                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //BTNLæŠ¬èµ·ï¼ŒLED9æŒ‡ç¤ºç¯ç­
+                            //æœºæ¢°è‡‚é¡ºæ—¶é’ˆï¼Œè½¬é€Ÿè§’åº¦ä¸º3
                             arm(1, 0);
                             reverse_opt[step_count][2] = '7';
                             step_count++;
-                        } else if (flag_button == 0x00000008) {    //ÅĞ¶ÏBTNR°´¼üÊÇ·ñ°´ÏÂ
-                            DATA_0 = DATA_0 | 0x00000080;        //LED9Ö¸Ê¾µÆÁÁ
-                            delay(1000, 500, 50);                    //ÑÓÊ±Ô¼1Ãë£¬½øĞĞÏû¶¶¶¯´¦Àí
+                        } else if (flag_button == 0x00000008) {    //åˆ¤æ–­BTNRæŒ‰é”®æ˜¯å¦æŒ‰ä¸‹
+                            DATA_0 = DATA_0 | 0x00000080;        //LED9æŒ‡ç¤ºç¯äº®
+                            delay(1000, 500, 50);                    //å»¶æ—¶çº¦1ç§’ï¼Œè¿›è¡Œæ¶ˆæŠ–åŠ¨å¤„ç†
                             flag_button = DATA_2_RO & 0x0000001F;
-                            while (flag_button == 0x00000008) {    //ÅĞ¶ÏBTNR°´¼üÊÇ·ñÌ§Æğ
+                            while (flag_button == 0x00000008) {    //åˆ¤æ–­BTNRæŒ‰é”®æ˜¯å¦æŠ¬èµ·
                                 flag_button = DATA_2_RO & 0x0000001F;
                             }
-                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9Ö¸Ê¾µÆÃğ
-                            //»úĞµ±ÛÄæÊ±Õë£¬×ªËÙ½Ç¶ÈÎª3
+                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9æŒ‡ç¤ºç¯ç­
+                            //æœºæ¢°è‡‚é€†æ—¶é’ˆï¼Œè½¬é€Ÿè§’åº¦ä¸º3
                             arm(1, 1);
                             reverse_opt[step_count][2] = '3';
                             step_count++;
@@ -182,30 +182,30 @@ int main(){
                         break;
                         //
                     case 0x080:
-                        //µÚ¶ş¸öÖá
-                        //LED7¡¢5ÁÁ
+                        //ç¬¬äºŒä¸ªè½´
+                        //LED7ã€5äº®
                         DATA_2 = (DATA_2 | 0x0000A000) & 0x0000AFFF;
-                        if (flag_button == 0x00000004) {            //ÅĞ¶ÏBTNL°´¼üÊÇ·ñ°´ÏÂ
-                            DATA_0 = DATA_0 | 0x00000080;        //LED9Ö¸Ê¾µÆÁÁ
-                            delay(1000, 500, 50);                    //ÑÓÊ±Ô¼1Ãë£¬½øĞĞÏû¶¶¶¯´¦Àí
+                        if (flag_button == 0x00000004) {            //åˆ¤æ–­BTNLæŒ‰é”®æ˜¯å¦æŒ‰ä¸‹
+                            DATA_0 = DATA_0 | 0x00000080;        //LED9æŒ‡ç¤ºç¯äº®
+                            delay(1000, 500, 50);                    //å»¶æ—¶çº¦1ç§’ï¼Œè¿›è¡Œæ¶ˆæŠ–åŠ¨å¤„ç†
                             flag_button = DATA_2_RO & 0x0000001F;
-                            while (flag_button == 0x00000004) {    //ÅĞ¶ÏBTNL°´¼üÊÇ·ñÌ§Æğ
+                            while (flag_button == 0x00000004) {    //åˆ¤æ–­BTNLæŒ‰é”®æ˜¯å¦æŠ¬èµ·
                                 flag_button = DATA_2_RO & 0x0000001F;
                             }
-                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9Ö¸Ê¾µÆÃğ
-                            //ÖáË³Ê±Õë£¬×ªËÙ½Ç¶ÈÎª3
+                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9æŒ‡ç¤ºç¯ç­
+                            //è½´é¡ºæ—¶é’ˆï¼Œè½¬é€Ÿè§’åº¦ä¸º3
                             arm(2, 0);
                             reverse_opt[step_count][3] = '7';
                             step_count++;
-                        } else if (flag_button == 0x00000008) {    //ÅĞ¶ÏBTNR°´¼üÊÇ·ñ°´ÏÂ
-                            DATA_0 = DATA_0 | 0x00000080;        //LED9Ö¸Ê¾µÆÁÁ
-                            delay(1000, 500, 50);                    //ÑÓÊ±Ô¼1Ãë£¬½øĞĞÏû¶¶¶¯´¦Àí
+                        } else if (flag_button == 0x00000008) {    //åˆ¤æ–­BTNRæŒ‰é”®æ˜¯å¦æŒ‰ä¸‹
+                            DATA_0 = DATA_0 | 0x00000080;        //LED9æŒ‡ç¤ºç¯äº®
+                            delay(1000, 500, 50);                    //å»¶æ—¶çº¦1ç§’ï¼Œè¿›è¡Œæ¶ˆæŠ–åŠ¨å¤„ç†
                             flag_button = DATA_2_RO & 0x0000001F;
-                            while (flag_button == 0x00000008) {    //ÅĞ¶ÏBTNR°´¼üÊÇ·ñÌ§Æğ
+                            while (flag_button == 0x00000008) {    //åˆ¤æ–­BTNRæŒ‰é”®æ˜¯å¦æŠ¬èµ·
                                 flag_button = DATA_2_RO & 0x0000001F;
                             }
-                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9Ö¸Ê¾µÆÃğ
-                            //ÖáÄæÊ±Õë£¬×ªËÙ½Ç¶ÈÎª3
+                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9æŒ‡ç¤ºç¯ç­
+                            //è½´é€†æ—¶é’ˆï¼Œè½¬é€Ÿè§’åº¦ä¸º3
                             arm(2, 1);
                             reverse_opt[step_count][3] = '3';
                             step_count++;
@@ -213,30 +213,30 @@ int main(){
                         break;
 
                     case 0x100:
-                        //µÚÈı¸öÖá
-                        //µãµÆ
+                        //ç¬¬ä¸‰ä¸ªè½´
+                        //ç‚¹ç¯
                         DATA_2 = (DATA_2 | 0x00012000) & 0x00012FFF;
-                        if (flag_button == 0x00000004) {                //ÅĞ¶ÏBTNL°´¼üÊÇ·ñ°´ÏÂ
-                            DATA_0 = DATA_0 | 0x00000080;        //LED9Ö¸Ê¾µÆÁÁ
-                            delay(1000, 500, 50);                    //ÑÓÊ±Ô¼1Ãë£¬½øĞĞÏû¶¶¶¯´¦Àí
+                        if (flag_button == 0x00000004) {                //åˆ¤æ–­BTNLæŒ‰é”®æ˜¯å¦æŒ‰ä¸‹
+                            DATA_0 = DATA_0 | 0x00000080;        //LED9æŒ‡ç¤ºç¯äº®
+                            delay(1000, 500, 50);                    //å»¶æ—¶çº¦1ç§’ï¼Œè¿›è¡Œæ¶ˆæŠ–åŠ¨å¤„ç†
                             flag_button = DATA_2_RO & 0x0000001F;
-                            while (flag_button == 0x00000004) {            //ÅĞ¶ÏBTNL°´¼üÊÇ·ñÌ§Æğ
+                            while (flag_button == 0x00000004) {            //åˆ¤æ–­BTNLæŒ‰é”®æ˜¯å¦æŠ¬èµ·
                                 flag_button = DATA_2_RO & 0x0000001F;
                             }
-                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9Ö¸Ê¾µÆÃğ
-                            //ÖáË³Ê±Õë£¬×ªËÙ½Ç¶ÈÎª3
+                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9æŒ‡ç¤ºç¯ç­
+                            //è½´é¡ºæ—¶é’ˆï¼Œè½¬é€Ÿè§’åº¦ä¸º3
                             arm(3, 0);
                             reverse_opt[step_count][4] = '7';
                             step_count++;
-                        } else if (flag_button == 0x00000008) {            //ÅĞ¶ÏBTNR°´¼üÊÇ·ñ°´ÏÂ
-                            DATA_0 = DATA_0 | 0x00000080;        //LED9Ö¸Ê¾µÆÁÁ
-                            delay(1000, 500, 50);                    //ÑÓÊ±Ô¼1Ãë£¬½øĞĞÏû¶¶¶¯´¦Àí
+                        } else if (flag_button == 0x00000008) {            //åˆ¤æ–­BTNRæŒ‰é”®æ˜¯å¦æŒ‰ä¸‹
+                            DATA_0 = DATA_0 | 0x00000080;        //LED9æŒ‡ç¤ºç¯äº®
+                            delay(1000, 500, 50);                    //å»¶æ—¶çº¦1ç§’ï¼Œè¿›è¡Œæ¶ˆæŠ–åŠ¨å¤„ç†
                             flag_button = DATA_2_RO & 0x0000001F;
-                            while (flag_button == 0x00000008) {            //ÅĞ¶ÏBTNR°´¼üÊÇ·ñÌ§Æğ
+                            while (flag_button == 0x00000008) {            //åˆ¤æ–­BTNRæŒ‰é”®æ˜¯å¦æŠ¬èµ·
                                 flag_button = DATA_2_RO & 0x0000001F;
                             }
-                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9Ö¸Ê¾µÆÃğ
-                            //ÖáÄæÊ±Õë£¬×ªËÙ½Ç¶ÈÎª3
+                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9æŒ‡ç¤ºç¯ç­
+                            //è½´é€†æ—¶é’ˆï¼Œè½¬é€Ÿè§’åº¦ä¸º3
                             arm(3, 1);
                             reverse_opt[step_count][4] = '3';
                             step_count++;
@@ -244,30 +244,30 @@ int main(){
                         break;
                         //
                     case 0x180:
-                        //µÚËÄ¸öÖá
-                        //µãµÆ
+                        //ç¬¬å››ä¸ªè½´
+                        //ç‚¹ç¯
                         DATA_2 = (DATA_2 | 0x0001A000) & 0x0001AFFF;
-                        if (flag_button == 0x00000004) {                //ÅĞ¶ÏBTNL°´¼üÊÇ·ñ°´ÏÂ
-                            DATA_0 = DATA_0 | 0x00000080;        //LED9Ö¸Ê¾µÆÁÁ
-                            delay(1000, 500, 50);                    //ÑÓÊ±Ô¼1Ãë£¬½øĞĞÏû¶¶¶¯´¦Àí
+                        if (flag_button == 0x00000004) {                //åˆ¤æ–­BTNLæŒ‰é”®æ˜¯å¦æŒ‰ä¸‹
+                            DATA_0 = DATA_0 | 0x00000080;        //LED9æŒ‡ç¤ºç¯äº®
+                            delay(1000, 500, 50);                    //å»¶æ—¶çº¦1ç§’ï¼Œè¿›è¡Œæ¶ˆæŠ–åŠ¨å¤„ç†
                             flag_button = DATA_2_RO & 0x0000001F;
-                            while (flag_button == 0x00000004) {            //ÅĞ¶ÏBTNL°´¼üÊÇ·ñÌ§Æğ
+                            while (flag_button == 0x00000004) {            //åˆ¤æ–­BTNLæŒ‰é”®æ˜¯å¦æŠ¬èµ·
                                 flag_button = DATA_2_RO & 0x0000001F;
                             }
-                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9Ö¸Ê¾µÆÃğ
-                            //ÖáË³Ê±Õë£¬×ªËÙ½Ç¶ÈÎª3
+                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9æŒ‡ç¤ºç¯ç­
+                            //è½´é¡ºæ—¶é’ˆï¼Œè½¬é€Ÿè§’åº¦ä¸º3
                             arm(4, 0);
                             reverse_opt[step_count][5] = '7';
                             step_count++;
-                        } else if (flag_button == 0x00000008) {            //ÅĞ¶ÏBTNR°´¼üÊÇ·ñ°´ÏÂ
-                            DATA_0 = (DATA_0 | 0x00000080) & 0x00008FFF;        //LED9Ö¸Ê¾µÆÁÁ
-                            delay(1000, 500, 50);                    //ÑÓÊ±Ô¼1Ãë£¬½øĞĞÏû¶¶¶¯´¦Àí
+                        } else if (flag_button == 0x00000008) {            //åˆ¤æ–­BTNRæŒ‰é”®æ˜¯å¦æŒ‰ä¸‹
+                            DATA_0 = (DATA_0 | 0x00000080) & 0x00008FFF;        //LED9æŒ‡ç¤ºç¯äº®
+                            delay(1000, 500, 50);                    //å»¶æ—¶çº¦1ç§’ï¼Œè¿›è¡Œæ¶ˆæŠ–åŠ¨å¤„ç†
                             flag_button = DATA_2_RO & 0x0000001F;
-                            while (flag_button == 0x00000008) {            //ÅĞ¶ÏBTNR°´¼üÊÇ·ñÌ§Æğ
+                            while (flag_button == 0x00000008) {            //åˆ¤æ–­BTNRæŒ‰é”®æ˜¯å¦æŠ¬èµ·
                                 flag_button = DATA_2_RO & 0x0000001F;
                             }
-                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9Ö¸Ê¾µÆÃğ
-                            //ÖáÄæÊ±Õë£¬×ªËÙ½Ç¶ÈÎª3
+                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9æŒ‡ç¤ºç¯ç­
+                            //è½´é€†æ—¶é’ˆï¼Œè½¬é€Ÿè§’åº¦ä¸º3
                             arm(4, 1);
                             reverse_opt[step_count][5] = '3';
                             step_count++;
@@ -275,30 +275,30 @@ int main(){
                         break;
                         //
                     case 0x200:
-                        //µÚÎå¸öÖá
-                        //µãµÆ
+                        //ç¬¬äº”ä¸ªè½´
+                        //ç‚¹ç¯
                         DATA_2 = (DATA_2 | 0x00022000) & 0x00022FFF;
-                        if (flag_button == 0x00000004) {                //ÅĞ¶ÏBTNL°´¼üÊÇ·ñ°´ÏÂ
-                            DATA_0 = DATA_0 | 0x00000080;        //LED9Ö¸Ê¾µÆÁÁ
-                            delay(1000, 500, 50);                    //ÑÓÊ±Ô¼1Ãë£¬½øĞĞÏû¶¶¶¯´¦Àí
+                        if (flag_button == 0x00000004) {                //åˆ¤æ–­BTNLæŒ‰é”®æ˜¯å¦æŒ‰ä¸‹
+                            DATA_0 = DATA_0 | 0x00000080;        //LED9æŒ‡ç¤ºç¯äº®
+                            delay(1000, 500, 50);                    //å»¶æ—¶çº¦1ç§’ï¼Œè¿›è¡Œæ¶ˆæŠ–åŠ¨å¤„ç†
                             flag_button = DATA_2_RO & 0x0000001F;
-                            while (flag_button == 0x00000004) {            //ÅĞ¶ÏBTNL°´¼üÊÇ·ñÌ§Æğ
+                            while (flag_button == 0x00000004) {            //åˆ¤æ–­BTNLæŒ‰é”®æ˜¯å¦æŠ¬èµ·
                                 flag_button = DATA_2_RO & 0x0000001F;
                             }
-                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9Ö¸Ê¾µÆÃğ
-                            //ÖáË³Ê±Õë£¬×ªËÙ½Ç¶ÈÎª3
+                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9æŒ‡ç¤ºç¯ç­
+                            //è½´é¡ºæ—¶é’ˆï¼Œè½¬é€Ÿè§’åº¦ä¸º3
                             arm(5, 0);
                             reverse_opt[step_count][6] = '7';
                             step_count++;
-                        } else if (flag_button == 0x00000008) {            //ÅĞ¶ÏBTNR°´¼üÊÇ·ñ°´ÏÂ
-                            DATA_0 = DATA_0 | 0x00000080;        //LED9Ö¸Ê¾µÆÁÁ
-                            delay(1000, 500, 50);                    //ÑÓÊ±Ô¼1Ãë£¬½øĞĞÏû¶¶¶¯´¦Àí
+                        } else if (flag_button == 0x00000008) {            //åˆ¤æ–­BTNRæŒ‰é”®æ˜¯å¦æŒ‰ä¸‹
+                            DATA_0 = DATA_0 | 0x00000080;        //LED9æŒ‡ç¤ºç¯äº®
+                            delay(1000, 500, 50);                    //å»¶æ—¶çº¦1ç§’ï¼Œè¿›è¡Œæ¶ˆæŠ–åŠ¨å¤„ç†
                             flag_button = DATA_2_RO & 0x0000001F;
-                            while (flag_button == 0x00000008) {            //ÅĞ¶ÏBTNR°´¼üÊÇ·ñÌ§Æğ
+                            while (flag_button == 0x00000008) {            //åˆ¤æ–­BTNRæŒ‰é”®æ˜¯å¦æŠ¬èµ·
                                 flag_button = DATA_2_RO & 0x0000001F;
                             }
-                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9Ö¸Ê¾µÆÃğ
-                            //ÖáÄæÊ±Õë£¬×ªËÙ½Ç¶ÈÎª3
+                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9æŒ‡ç¤ºç¯ç­
+                            //è½´é€†æ—¶é’ˆï¼Œè½¬é€Ÿè§’åº¦ä¸º3
                             arm(5, 1);
                             reverse_opt[step_count][6] = '3';
                             step_count++;
@@ -306,30 +306,30 @@ int main(){
                         break;
 
                     case 0x280:
-                        //µÚÁù¸öÖá
-                        //µãµÆ
+                        //ç¬¬å…­ä¸ªè½´
+                        //ç‚¹ç¯
                         DATA_2 = (DATA_2 | 0x0002A000) & 0x0002AFFF;
-                        if (flag_button == 0x00000004) {                //ÅĞ¶ÏBTNL°´¼üÊÇ·ñ°´ÏÂ
-                            DATA_0 = DATA_0 | 0x00000080;        //LED9Ö¸Ê¾µÆÁÁ
-                            delay(1000, 500, 50);                    //ÑÓÊ±Ô¼1Ãë£¬½øĞĞÏû¶¶¶¯´¦Àí
+                        if (flag_button == 0x00000004) {                //åˆ¤æ–­BTNLæŒ‰é”®æ˜¯å¦æŒ‰ä¸‹
+                            DATA_0 = DATA_0 | 0x00000080;        //LED9æŒ‡ç¤ºç¯äº®
+                            delay(1000, 500, 50);                    //å»¶æ—¶çº¦1ç§’ï¼Œè¿›è¡Œæ¶ˆæŠ–åŠ¨å¤„ç†
                             flag_button = DATA_2_RO & 0x0000001F;
-                            while (flag_button == 0x00000004) {            //ÅĞ¶ÏBTNL°´¼üÊÇ·ñÌ§Æğ
+                            while (flag_button == 0x00000004) {            //åˆ¤æ–­BTNLæŒ‰é”®æ˜¯å¦æŠ¬èµ·
                                 flag_button = DATA_2_RO & 0x0000001F;
                             }
-                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9Ö¸Ê¾µÆÃğ
-                            //ÖáË³Ê±Õë£¬×ªËÙ½Ç¶ÈÎª3
+                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9æŒ‡ç¤ºç¯ç­
+                            //è½´é¡ºæ—¶é’ˆï¼Œè½¬é€Ÿè§’åº¦ä¸º3
                             arm(6, 0);
                             reverse_opt[step_count][7] = '7';
                             step_count++;
-                        } else if (flag_button == 0x00000008) {            //ÅĞ¶ÏBTNR°´¼üÊÇ·ñ°´ÏÂ
-                            DATA_0 = DATA_0 | 0x00000080;        //LED9Ö¸Ê¾µÆÁÁ
-                            delay(1000, 500, 50);                    //ÑÓÊ±Ô¼1Ãë£¬½øĞĞÏû¶¶¶¯´¦Àí
+                        } else if (flag_button == 0x00000008) {            //åˆ¤æ–­BTNRæŒ‰é”®æ˜¯å¦æŒ‰ä¸‹
+                            DATA_0 = DATA_0 | 0x00000080;        //LED9æŒ‡ç¤ºç¯äº®
+                            delay(1000, 500, 50);                    //å»¶æ—¶çº¦1ç§’ï¼Œè¿›è¡Œæ¶ˆæŠ–åŠ¨å¤„ç†
                             flag_button = DATA_2_RO & 0x0000001F;
-                            while (flag_button == 0x00000008) {            //ÅĞ¶ÏBTNR°´¼üÊÇ·ñÌ§Æğ
+                            while (flag_button == 0x00000008) {            //åˆ¤æ–­BTNRæŒ‰é”®æ˜¯å¦æŠ¬èµ·
                                 flag_button = DATA_2_RO & 0x0000001F;
                             }
-                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9Ö¸Ê¾µÆÃğ
-                            //ÖáÄæÊ±Õë£¬×ªËÙ½Ç¶ÈÎª3
+                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9æŒ‡ç¤ºç¯ç­
+                            //è½´é€†æ—¶é’ˆï¼Œè½¬é€Ÿè§’åº¦ä¸º3
                             arm(6, 1);
                             reverse_opt[step_count][7] = '3';
                             step_count++;
@@ -337,30 +337,30 @@ int main(){
                         break;
 
                     case 0x300:
-                        //¹ìµÀÒÆ¶¯
-                        //µãµÆ
+                        //è½¨é“ç§»åŠ¨
+                        //ç‚¹ç¯
                         DATA_2 = (DATA_2 | 0x00032000) & 0x00032FFF;
-                        if (flag_button == 0x00000004) {                //ÅĞ¶ÏBTNL°´¼üÊÇ·ñ°´ÏÂ
-                            DATA_0 = DATA_0 | 0x00000080;        //LED9Ö¸Ê¾µÆÁÁ
-                            delay(1000, 500, 50);                    //ÑÓÊ±Ô¼1Ãë£¬½øĞĞÏû¶¶¶¯´¦Àí
+                        if (flag_button == 0x00000004) {                //åˆ¤æ–­BTNLæŒ‰é”®æ˜¯å¦æŒ‰ä¸‹
+                            DATA_0 = DATA_0 | 0x00000080;        //LED9æŒ‡ç¤ºç¯äº®
+                            delay(1000, 500, 50);                    //å»¶æ—¶çº¦1ç§’ï¼Œè¿›è¡Œæ¶ˆæŠ–åŠ¨å¤„ç†
                             flag_button = DATA_2_RO & 0x0000001F;
-                            while (flag_button == 0x00000004) {            //ÅĞ¶ÏBTNL°´¼üÊÇ·ñÌ§Æğ
+                            while (flag_button == 0x00000004) {            //åˆ¤æ–­BTNLæŒ‰é”®æ˜¯å¦æŠ¬èµ·
                                 flag_button = DATA_2_RO & 0x0000001F;
                             }
-                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9Ö¸Ê¾µÆÃğ
-                            //×óÒÆ£¬2µµ
+                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9æŒ‡ç¤ºç¯ç­
+                            //å·¦ç§»ï¼Œ2æ¡£
                             arm(7, 0);
                             reverse_opt[step_count][8] = '5';
                             step_count++;
-                        } else if (flag_button == 0x00000008) {            //ÅĞ¶ÏBTNR°´¼üÊÇ·ñ°´ÏÂ
-                            DATA_0 = DATA_0 | 0x00000080;        //LED9Ö¸Ê¾µÆÁÁ
-                            delay(1000, 500, 50);                    //ÑÓÊ±Ô¼1Ãë£¬½øĞĞÏû¶¶¶¯´¦Àí
+                        } else if (flag_button == 0x00000008) {            //åˆ¤æ–­BTNRæŒ‰é”®æ˜¯å¦æŒ‰ä¸‹
+                            DATA_0 = DATA_0 | 0x00000080;        //LED9æŒ‡ç¤ºç¯äº®
+                            delay(1000, 500, 50);                    //å»¶æ—¶çº¦1ç§’ï¼Œè¿›è¡Œæ¶ˆæŠ–åŠ¨å¤„ç†
                             flag_button = DATA_2_RO & 0x0000001F;
-                            while (flag_button == 0x00000008) {            //ÅĞ¶ÏBTNR°´¼üÊÇ·ñÌ§Æğ
+                            while (flag_button == 0x00000008) {            //åˆ¤æ–­BTNRæŒ‰é”®æ˜¯å¦æŠ¬èµ·
                                 flag_button = DATA_2_RO & 0x0000001F;
                             }
-                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9Ö¸Ê¾µÆÃğ
-                            //ÓÒÒÆ£¬2µµ
+                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9æŒ‡ç¤ºç¯ç­
+                            //å³ç§»ï¼Œ2æ¡£
                             arm(7, 1);
                             reverse_opt[step_count][8] = '2';
                             step_count++;
@@ -368,136 +368,136 @@ int main(){
                         break;
                         //
                     case 0x380:
-                        //ÎüÅÌ
-                        //µãµÆ
+                        //å¸ç›˜
+                        //ç‚¹ç¯
                         DATA_2 = (DATA_2 | 0x0003A000) & 0x0003AFFF;
-                        if (flag_button == 0x00000004) {                //ÅĞ¶ÏBTNL°´¼üÊÇ·ñ°´ÏÂ
-                            DATA_0 = DATA_0 | 0x00000080;        //LED9Ö¸Ê¾µÆÁÁ
-                            delay(1000, 500, 50);                    //ÑÓÊ±Ô¼1Ãë£¬½øĞĞÏû¶¶¶¯´¦Àí
+                        if (flag_button == 0x00000004) {                //åˆ¤æ–­BTNLæŒ‰é”®æ˜¯å¦æŒ‰ä¸‹
+                            DATA_0 = DATA_0 | 0x00000080;        //LED9æŒ‡ç¤ºç¯äº®
+                            delay(1000, 500, 50);                    //å»¶æ—¶çº¦1ç§’ï¼Œè¿›è¡Œæ¶ˆæŠ–åŠ¨å¤„ç†
                             flag_button = DATA_2_RO & 0x0000001F;
-                            while (flag_button == 0x00000004) {            //ÅĞ¶ÏBTNL°´¼üÊÇ·ñÌ§Æğ
+                            while (flag_button == 0x00000004) {            //åˆ¤æ–­BTNLæŒ‰é”®æ˜¯å¦æŠ¬èµ·
                                 flag_button = DATA_2_RO & 0x0000001F;
                             }
-                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9Ö¸Ê¾µÆÃğ
+                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9æŒ‡ç¤ºç¯ç­
                             plate(1, 0);
                             step_count++;
-                        } else if (flag_button == 0x00000008) {            //ÅĞ¶ÏBTNR°´¼üÊÇ·ñ°´ÏÂ
-                            DATA_0 = DATA_0 | 0x00000080;        //LED9Ö¸Ê¾µÆÁÁ
-                            delay(1000, 500, 50);                    //ÑÓÊ±Ô¼1Ãë£¬½øĞĞÏû¶¶¶¯´¦Àí
+                        } else if (flag_button == 0x00000008) {            //åˆ¤æ–­BTNRæŒ‰é”®æ˜¯å¦æŒ‰ä¸‹
+                            DATA_0 = DATA_0 | 0x00000080;        //LED9æŒ‡ç¤ºç¯äº®
+                            delay(1000, 500, 50);                    //å»¶æ—¶çº¦1ç§’ï¼Œè¿›è¡Œæ¶ˆæŠ–åŠ¨å¤„ç†
                             flag_button = DATA_2_RO & 0x0000001F;
-                            while (flag_button == 0x00000008) {            //ÅĞ¶ÏBTNR°´¼üÊÇ·ñÌ§Æğ
+                            while (flag_button == 0x00000008) {            //åˆ¤æ–­BTNRæŒ‰é”®æ˜¯å¦æŠ¬èµ·
                                 flag_button = DATA_2_RO & 0x0000001F;
                             }
-                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9Ö¸Ê¾µÆÃğ
+                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9æŒ‡ç¤ºç¯ç­
                             plate(1, 1);
                             step_count++;
                         }
                         break;
                     case 0x400:
-                        //Ïä×Ó
-                        //µãµÆ
+                        //ç®±å­
+                        //ç‚¹ç¯
                         DATA_2 = (DATA_2 | 0x00042000) & 0x00042FFF;
-                        if (flag_button == 0x00000010) {                //ÅĞ¶ÏBTNR°´¼üÊÇ·ñ°´ÏÂ
-                            DATA_0 = DATA_0 | 0x00000080;        //LED9Ö¸Ê¾µÆÁÁ
-                            delay(1000, 500, 50);                    //ÑÓÊ±Ô¼1Ãë£¬½øĞĞÏû¶¶¶¯´¦Àí
+                        if (flag_button == 0x00000010) {                //åˆ¤æ–­BTNRæŒ‰é”®æ˜¯å¦æŒ‰ä¸‹
+                            DATA_0 = DATA_0 | 0x00000080;        //LED9æŒ‡ç¤ºç¯äº®
+                            delay(1000, 500, 50);                    //å»¶æ—¶çº¦1ç§’ï¼Œè¿›è¡Œæ¶ˆæŠ–åŠ¨å¤„ç†
                             flag_button = DATA_2_RO & 0x0000001F;
-                            while (flag_button == 0x00000010) {            //ÅĞ¶ÏBTNC°´¼üÊÇ·ñÌ§Æğ
+                            while (flag_button == 0x00000010) {            //åˆ¤æ–­BTNCæŒ‰é”®æ˜¯å¦æŠ¬èµ·
                                 flag_button = DATA_2_RO & 0x0000001F;
                             }
-                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9Ö¸Ê¾µÆÃğ
-                            //·ÅÏä×Ó
+                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9æŒ‡ç¤ºç¯ç­
+                            //æ”¾ç®±å­
                             box();
                         }
                         break;
                         //
                     case 0x480:
-                        //´«ËÍ´ø
-                        //µãµÆ
+                        //ä¼ é€å¸¦
+                        //ç‚¹ç¯
                         DATA_2 = (DATA_2 | 0x0004A000) & 0x0004AFFF;
-                        if (flag_button == 0x00000004) {                //ÅĞ¶ÏBTNL°´¼üÊÇ·ñ°´ÏÂ
-                            DATA_0 = DATA_0 | 0x00000080;        //LED9Ö¸Ê¾µÆÁÁ
-                            delay(1000, 500, 50);                    //ÑÓÊ±Ô¼1Ãë£¬½øĞĞÏû¶¶¶¯´¦Àí
+                        if (flag_button == 0x00000004) {                //åˆ¤æ–­BTNLæŒ‰é”®æ˜¯å¦æŒ‰ä¸‹
+                            DATA_0 = DATA_0 | 0x00000080;        //LED9æŒ‡ç¤ºç¯äº®
+                            delay(1000, 500, 50);                    //å»¶æ—¶çº¦1ç§’ï¼Œè¿›è¡Œæ¶ˆæŠ–åŠ¨å¤„ç†
                             flag_button = DATA_2_RO & 0x0000001F;
-                            while (flag_button == 0x00000004) {            //ÅĞ¶ÏBTNL°´¼üÊÇ·ñÌ§Æğ
+                            while (flag_button == 0x00000004) {            //åˆ¤æ–­BTNLæŒ‰é”®æ˜¯å¦æŠ¬èµ·
                                 flag_button = DATA_2_RO & 0x0000001F;
                             }
-                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9Ö¸Ê¾µÆÃğ
-                            //ÖáË³Ê±Õë£¬×ªËÙ½Ç¶ÈÎª3
+                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9æŒ‡ç¤ºç¯ç­
+                            //è½´é¡ºæ—¶é’ˆï¼Œè½¬é€Ÿè§’åº¦ä¸º3
                             trans(0);
-                        } else if (flag_button == 0x00000008) {            //ÅĞ¶ÏBTNR°´¼üÊÇ·ñ°´ÏÂ
-                            DATA_0 = DATA_0 | 0x00000080;        //LED9Ö¸Ê¾µÆÁÁ
-                            delay(1000, 500, 50);                    //ÑÓÊ±Ô¼1Ãë£¬½øĞĞÏû¶¶¶¯´¦Àí
+                        } else if (flag_button == 0x00000008) {            //åˆ¤æ–­BTNRæŒ‰é”®æ˜¯å¦æŒ‰ä¸‹
+                            DATA_0 = DATA_0 | 0x00000080;        //LED9æŒ‡ç¤ºç¯äº®
+                            delay(1000, 500, 50);                    //å»¶æ—¶çº¦1ç§’ï¼Œè¿›è¡Œæ¶ˆæŠ–åŠ¨å¤„ç†
                             flag_button = DATA_2_RO & 0x0000001F;
-                            while (flag_button == 0x00000008) {            //ÅĞ¶ÏBTNR°´¼üÊÇ·ñÌ§Æğ
+                            while (flag_button == 0x00000008) {            //åˆ¤æ–­BTNRæŒ‰é”®æ˜¯å¦æŠ¬èµ·
                                 flag_button = DATA_2_RO & 0x0000001F;
                             }
-                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9Ö¸Ê¾µÆÃğ
-                            //ÖáÄæÊ±Õë£¬×ªËÙ½Ç¶ÈÎª3
+                            DATA_0 = DATA_0 & 0xFFFFFF7F;        //LED9æŒ‡ç¤ºç¯ç­
+                            //è½´é€†æ—¶é’ˆï¼Œè½¬é€Ÿè§’åº¦ä¸º3
                             trans(1);
                         }
                         break;
                         //
                 }
                 break;
-            case 0x40:                    //×Ô¶¯Ä£Ê½
-                //ÏÈÁÁµÆ
-                DATA_2 = (DATA_2 | 0x00004000) & 0xFFFF7FFF;    //LED7Ãğ¡¢LED6ÁÁ
-                //È¡²Ù×÷£º1111-ÉèÖÃÄ£Ê½£¬ÆäËû£º×Ô¶¯
-                // DATA_2_ROµÄ8-11Î»£¬µÍ8¶ÔÓ¦2£¬9¶ÔÓ¦3...
-                flag = DATA_2_RO & 0x00000780;                  //È¡SW2,3,4,5À´¾ö¶¨Ä£Ê½
+            case 0x40:                    //è‡ªåŠ¨æ¨¡å¼
+                //å…ˆäº®ç¯
+                DATA_2 = (DATA_2 | 0x00004000) & 0xFFFF7FFF;    //LED7ç­ã€LED6äº®
+                //å–æ“ä½œï¼š1111-è®¾ç½®æ¨¡å¼ï¼Œå…¶ä»–ï¼šè‡ªåŠ¨
+                // DATA_2_ROçš„8-11ä½ï¼Œä½8å¯¹åº”2ï¼Œ9å¯¹åº”3...
+                flag = DATA_2_RO & 0x00000780;                  //å–SW2,3,4,5æ¥å†³å®šæ¨¡å¼
                 if(flag == 0x780){								//sw[2:5]=1111
-                    // µÍ5Î»·Ö±ğ¶ÔÓ¦°´¼üBTNU¡¢BTND¡¢BTNL¡¢BTNR¡¢BTNC
-                    //È«ÁÁ
+                    // ä½5ä½åˆ†åˆ«å¯¹åº”æŒ‰é”®BTNUã€BTNDã€BTNLã€BTNRã€BTNC
+                    //å…¨äº®
                     DATA_2 = (DATA_2 | 0x0007A000) & 0x0007AFFF;
-                    flag_button = DATA_2_RO & 0x0000001F;   //ÒÀ´ÎÈ¡£ºBTNU¡¢BTND¡¢BTNL¡¢BTNR¡¢BTNC
-                    if (flag_button == 0x00000004) {           // BTNL°´ÏÂ£¬Ôò×Ô¶¯Ä£Ê½
-                        DATA_0 = DATA_0 | 0x00000080;        //LED9µÆÁÁ
-                        delay(1000, 500, 50);                    //ÑÓÊ±1ÃëÏû¶¶¶¯´¦Àí
+                    flag_button = DATA_2_RO & 0x0000001F;   //ä¾æ¬¡å–ï¼šBTNUã€BTNDã€BTNLã€BTNRã€BTNC
+                    if (flag_button == 0x00000004) {           // BTNLæŒ‰ä¸‹ï¼Œåˆ™è‡ªåŠ¨æ¨¡å¼
+                        DATA_0 = DATA_0 | 0x00000080;        //LED9ç¯äº®
+                        delay(1000, 500, 50);                    //å»¶æ—¶1ç§’æ¶ˆæŠ–åŠ¨å¤„ç†
                         flag_button = DATA_2_RO & 0x0000001F;
-                        while (flag_button == 0x00000004) {            //ÅĞ¶ÏBTNL°´¼üÊÇ·ñÌ§Æğ
+                        while (flag_button == 0x00000004) {            //åˆ¤æ–­BTNLæŒ‰é”®æ˜¯å¦æŠ¬èµ·
                             flag_button = DATA_2_RO & 0x0000001F;
                         }
-                        DATA_0 = DATA_0 & 0xFFFFFF7F;        //°´¼üËÉ£¬LED9Ãğ
-                        //×Ô¶¯Ä£Ê½
+                        DATA_0 = DATA_0 & 0xFFFFFF7F;        //æŒ‰é”®æ¾ï¼ŒLED9ç­
+                        //è‡ªåŠ¨æ¨¡å¼
                         auto_ctl();
                     } else if (flag_button == 0x00000008) {
-                        //BTNC°´ÏÂ£¬ÊµÏÖÀ©³ä¹¦ÄÜ£ºÊÖ¶¯Éè¶¨×¥Îï´ÎÊı£¬
-                        //ÉèÖÃ´ÎÊıÊ±£¬´ÎÊıĞèÒªÔÚLEDÉÏÏÔÊ¾£¬È»ºó¸ù¾İ
-                        //Éè¶¨´ÎÊı£¬×Ô¶¯Íê³ÉÏàÓ¦´ÎÊıµÄÎïÌå°áÔË¡£°áÔËµÄ
-                        //´ÎÊıĞèÏÔÊ¾ÔÚLEDÉÏ¡£
-                        DATA_0 = DATA_0 | 0x00000080;        //LED9µÆÁÁ
-                        delay(1000, 500, 50);                    //ÑÓÊ±1ÃëÏû¶¶¶¯´¦Àí
+                        //BTNCæŒ‰ä¸‹ï¼Œå®ç°æ‰©å……åŠŸèƒ½ï¼šæ‰‹åŠ¨è®¾å®šæŠ“ç‰©æ¬¡æ•°ï¼Œ
+                        //è®¾ç½®æ¬¡æ•°æ—¶ï¼Œæ¬¡æ•°éœ€è¦åœ¨LEDä¸Šæ˜¾ç¤ºï¼Œç„¶åæ ¹æ®
+                        //è®¾å®šæ¬¡æ•°ï¼Œè‡ªåŠ¨å®Œæˆç›¸åº”æ¬¡æ•°çš„ç‰©ä½“æ¬è¿ã€‚æ¬è¿çš„
+                        //æ¬¡æ•°éœ€æ˜¾ç¤ºåœ¨LEDä¸Šã€‚
+                        DATA_0 = DATA_0 | 0x00000080;        //LED9ç¯äº®
+                        delay(1000, 500, 50);                    //å»¶æ—¶1ç§’æ¶ˆæŠ–åŠ¨å¤„ç†
                         flag_button = DATA_2_RO & 0x0000001F;
-                        while (flag_button == 0x00000008) {            //ÅĞ¶ÏBTNL°´¼üÊÇ·ñÌ§Æğ
+                        while (flag_button == 0x00000008) {            //åˆ¤æ–­BTNLæŒ‰é”®æ˜¯å¦æŠ¬èµ·
                             flag_button = DATA_2_RO & 0x0000001F;
                         }
-                        DATA_0 = DATA_0 & 0xFFFFFF7F;        //°´¼üËÉ£¬LED9Ãğ
-                        // ÔÚLEDÉÏÏÔÊ¾Éè¶¨µÄ×¥Îï´ÎÊı
+                        DATA_0 = DATA_0 & 0xFFFFFF7F;        //æŒ‰é”®æ¾ï¼ŒLED9ç­
+                        // åœ¨LEDä¸Šæ˜¾ç¤ºè®¾å®šçš„æŠ“ç‰©æ¬¡æ•°
                         displayOnLED(grabCount);
-                        // Ö´ĞĞ°áÔË¶¯×÷
+                        // æ‰§è¡Œæ¬è¿åŠ¨ä½œ
                         for (int i = grabCount; i > 0; --i) {
-                            delay(2952, 500, 50);                    //ÑÓÊ±1ÃëÏû¶¶¶¯´¦Àí
-                            // ×Ô¶¯°áÔË
+                            delay(2952, 500, 50);                    //å»¶æ—¶1ç§’æ¶ˆæŠ–åŠ¨å¤„ç†
+                            // è‡ªåŠ¨æ¬è¿
                             auto_ctl();
-                            // ÔÚLEDÉÏÏÔÊ¾°áÔË´ÎÊı
+                            // åœ¨LEDä¸Šæ˜¾ç¤ºæ¬è¿æ¬¡æ•°
                             displayOnLED(i - 1);
                         }
-                    }//numÔö¼õ²Ù×÷
+                    }//numå¢å‡æ“ä½œ
                     else if (flag_button == 0x00000001){			//BTNU ++
-                        DATA_0 = DATA_0 | 0x00000080;		//LED9Ö¸Ê¾µÆÁÁ
-                        delay(1000,500,50);					//ÑÓÊ±Ô¼1Ãë£¬½øĞĞÏû¶¶¶¯´¦Àí
+                        DATA_0 = DATA_0 | 0x00000080;		//LED9æŒ‡ç¤ºç¯äº®
+                        delay(1000,500,50);					//å»¶æ—¶çº¦1ç§’ï¼Œè¿›è¡Œæ¶ˆæŠ–åŠ¨å¤„ç†
                         flag_button = DATA_2_RO & 0x0000001F;
-                        while(flag_button == 0x00000001){		//ÅĞ¶ÏBTN	u°´¼üÊÇ·ñÌ§Æğ
+                        while(flag_button == 0x00000001){		//åˆ¤æ–­BTN	uæŒ‰é”®æ˜¯å¦æŠ¬èµ·
                             flag_button = DATA_2_RO & 0x0000001F;
                         }
                         DATA_0 = DATA_0 & 0xFFFFFF7F;
                         grabCount++;
                         displayOnLED(grabCount);
                     }else if (flag_button == 0x00000002){	//BTND --
-                        DATA_0 = DATA_0 | 0x00000080;		//LED9Ö¸Ê¾µÆÁÁ
-                        delay(1000,500,50);					//ÑÓÊ±Ô¼1Ãë£¬½øĞĞÏû¶¶¶¯´¦Àí
+                        DATA_0 = DATA_0 | 0x00000080;		//LED9æŒ‡ç¤ºç¯äº®
+                        delay(1000,500,50);					//å»¶æ—¶çº¦1ç§’ï¼Œè¿›è¡Œæ¶ˆæŠ–åŠ¨å¤„ç†
                         flag_button = DATA_2_RO & 0x0000001F;
-                        while(flag_button == 0x00000002){			//ÅĞ¶ÏBTNd°´¼üÊÇ·ñÌ§Æğ
+                        while(flag_button == 0x00000002){			//åˆ¤æ–­BTNdæŒ‰é”®æ˜¯å¦æŠ¬èµ·
                             flag_button = DATA_2_RO & 0x0000001F;
                         }
                         DATA_0 = DATA_0 & 0xFFFFFF7F;
@@ -505,46 +505,46 @@ int main(){
                         displayOnLED(grabCount);
                     }
                 }else{
-                    // µÍ5Î»·Ö±ğ¶ÔÓ¦°´¼üBTNU¡¢BTND¡¢BTNL¡¢BTNR¡¢BTNC
-                    flag_button = DATA_2_RO & 0x0000001F;   //ÒÀ´ÎÈ¡£ºBTNU¡¢BTND¡¢BTNL¡¢BTNR¡¢BTNC
-                    if (flag_button == 0x00000004) {           // BTNL°´ÏÂ£¬Ôò×Ô¶¯Ä£Ê½
-                        DATA_0 = DATA_0 | 0x00000080;        //LED9µÆÁÁ
-                        delay(1000, 500, 50);                    //ÑÓÊ±1ÃëÏû¶¶¶¯´¦Àí
+                    // ä½5ä½åˆ†åˆ«å¯¹åº”æŒ‰é”®BTNUã€BTNDã€BTNLã€BTNRã€BTNC
+                    flag_button = DATA_2_RO & 0x0000001F;   //ä¾æ¬¡å–ï¼šBTNUã€BTNDã€BTNLã€BTNRã€BTNC
+                    if (flag_button == 0x00000004) {           // BTNLæŒ‰ä¸‹ï¼Œåˆ™è‡ªåŠ¨æ¨¡å¼
+                        DATA_0 = DATA_0 | 0x00000080;        //LED9ç¯äº®
+                        delay(1000, 500, 50);                    //å»¶æ—¶1ç§’æ¶ˆæŠ–åŠ¨å¤„ç†
                         flag_button = DATA_2_RO & 0x0000001F;
-                        while (flag_button == 0x00000004) {            //ÅĞ¶ÏBTNL°´¼üÊÇ·ñÌ§Æğ
+                        while (flag_button == 0x00000004) {            //åˆ¤æ–­BTNLæŒ‰é”®æ˜¯å¦æŠ¬èµ·
                             flag_button = DATA_2_RO & 0x0000001F;
                         }
-                        DATA_0 = DATA_0 & 0xFFFFFF7F;        //°´¼üËÉ£¬LED9Ãğ
-                        //×Ô¶¯Ä£Ê½
+                        DATA_0 = DATA_0 & 0xFFFFFF7F;        //æŒ‰é”®æ¾ï¼ŒLED9ç­
+                        //è‡ªåŠ¨æ¨¡å¼
                         auto_ctl();
                     } else if (flag_button == 0x00000008) {
-                        //BTNC°´ÏÂ£¬ÊµÏÖÀ©³ä¹¦ÄÜ£ºÊÖ¶¯Éè¶¨×¥Îï´ÎÊı£¬
-                        //ÉèÖÃ´ÎÊıÊ±£¬´ÎÊıĞèÒªÔÚLEDÉÏÏÔÊ¾£¬È»ºó¸ù¾İ
-                        //Éè¶¨´ÎÊı£¬×Ô¶¯Íê³ÉÏàÓ¦´ÎÊıµÄÎïÌå°áÔË¡£°áÔËµÄ
-                        //´ÎÊıĞèÏÔÊ¾ÔÚLEDÉÏ¡£
-                        DATA_0 = DATA_0 | 0x00000080;        //LED9µÆÁÁ
-                        delay(1000, 500, 50);                    //ÑÓÊ±1ÃëÏû¶¶¶¯´¦Àí
+                        //BTNCæŒ‰ä¸‹ï¼Œå®ç°æ‰©å……åŠŸèƒ½ï¼šæ‰‹åŠ¨è®¾å®šæŠ“ç‰©æ¬¡æ•°ï¼Œ
+                        //è®¾ç½®æ¬¡æ•°æ—¶ï¼Œæ¬¡æ•°éœ€è¦åœ¨LEDä¸Šæ˜¾ç¤ºï¼Œç„¶åæ ¹æ®
+                        //è®¾å®šæ¬¡æ•°ï¼Œè‡ªåŠ¨å®Œæˆç›¸åº”æ¬¡æ•°çš„ç‰©ä½“æ¬è¿ã€‚æ¬è¿çš„
+                        //æ¬¡æ•°éœ€æ˜¾ç¤ºåœ¨LEDä¸Šã€‚
+                        DATA_0 = DATA_0 | 0x00000080;        //LED9ç¯äº®
+                        delay(1000, 500, 50);                    //å»¶æ—¶1ç§’æ¶ˆæŠ–åŠ¨å¤„ç†
                         flag_button = DATA_2_RO & 0x0000001F;
-                        while (flag_button == 0x00000008) {            //ÅĞ¶ÏBTNL°´¼üÊÇ·ñÌ§Æğ
+                        while (flag_button == 0x00000008) {            //åˆ¤æ–­BTNLæŒ‰é”®æ˜¯å¦æŠ¬èµ·
                             flag_button = DATA_2_RO & 0x0000001F;
                         }
-                        DATA_0 = DATA_0 & 0xFFFFFF7F;        //°´¼üËÉ£¬LED9Ãğ
-                        // ÊÖ¶¯Éè¶¨×¥Îï´ÎÊı£¬ÀıÈçÉè¶¨Îª5´Î
+                        DATA_0 = DATA_0 & 0xFFFFFF7F;        //æŒ‰é”®æ¾ï¼ŒLED9ç­
+                        // æ‰‹åŠ¨è®¾å®šæŠ“ç‰©æ¬¡æ•°ï¼Œä¾‹å¦‚è®¾å®šä¸º5æ¬¡
                         grabCount = 5;
-                        // ÔÚLEDÉÏÏÔÊ¾Éè¶¨µÄ×¥Îï´ÎÊı
+                        // åœ¨LEDä¸Šæ˜¾ç¤ºè®¾å®šçš„æŠ“ç‰©æ¬¡æ•°
                         displayOnLED(grabCount);
-                        // Ö´ĞĞ°áÔË¶¯×÷
+                        // æ‰§è¡Œæ¬è¿åŠ¨ä½œ
                         for (int i = grabCount; i > 0; --i) {
-                            delay(2952, 500, 50);                    //ÑÓÊ±1ÃëÏû¶¶¶¯´¦Àí
-                            // ×Ô¶¯°áÔË
+                            delay(2952, 500, 50);                    //å»¶æ—¶1ç§’æ¶ˆæŠ–åŠ¨å¤„ç†
+                            // è‡ªåŠ¨æ¬è¿
                             auto_ctl();
-                            // ÔÚLEDÉÏÏÔÊ¾°áÔË´ÎÊı
+                            // åœ¨LEDä¸Šæ˜¾ç¤ºæ¬è¿æ¬¡æ•°
                             displayOnLED(i - 1);
                         }
                     }
                     break;
-                    case 0x60:                    //»úĞµ±ÛÊ¾½ÌÄ£Ê½£¨¸ÃÄ£Ê½Ôİ²»ÊµÏÖ£©
-                        DATA_2 = DATA_2 | 0x00006000;                    //LED7ÁÁ¡¢LED6ÁÁ
+                    case 0x60:                    //æœºæ¢°è‡‚ç¤ºæ•™æ¨¡å¼ï¼ˆè¯¥æ¨¡å¼æš‚ä¸å®ç°ï¼‰
+                        DATA_2 = DATA_2 | 0x00006000;                    //LED7äº®ã€LED6äº®
                     break;
                 }
         }
@@ -552,11 +552,11 @@ int main(){
     return 0;
 }
 
-//»úĞµ±ÛÏà¹Ø¸÷²¿¼ş¶¯×÷º¯Êı
+//æœºæ¢°è‡‚ç›¸å…³å„éƒ¨ä»¶åŠ¨ä½œå‡½æ•°
 void arm(int Arm_ID,int Arm_dir){
     unsigned char modbus_com[9];
-    modbus_com[0]='#';				//ÆğÊ¼·û£¬¹Ì¶¨Îª#
-    modbus_com[1]='1';				//1ºÅ»úĞµ±Û
+    modbus_com[0]='#';				//èµ·å§‹ç¬¦ï¼Œå›ºå®šä¸º#
+    modbus_com[1]='1';				//1å·æœºæ¢°è‡‚
     modbus_com[2]='0';
     modbus_com[3]='0';
     modbus_com[4]='0';
@@ -566,7 +566,7 @@ void arm(int Arm_ID,int Arm_dir){
     modbus_com[8]='0';
 
     switch(Arm_ID){
-        case 1:						//µÚÒ»¸öÖá
+        case 1:						//ç¬¬ä¸€ä¸ªè½´
             if (Arm_dir==0){
                 modbus_com[2]='3';
             }
@@ -574,7 +574,7 @@ void arm(int Arm_ID,int Arm_dir){
                 modbus_com[2]='7';
             }
             break;
-        case 2:						//µÚ¶ş¸öÖá
+        case 2:						//ç¬¬äºŒä¸ªè½´
             if (Arm_dir==0){
                 modbus_com[3]='3';
             }
@@ -582,7 +582,7 @@ void arm(int Arm_ID,int Arm_dir){
                 modbus_com[3]='7';
             }
             break;
-        case 3:						//µÚÈı¸öÖá
+        case 3:						//ç¬¬ä¸‰ä¸ªè½´
             if (Arm_dir==0){
                 modbus_com[4]='3';
             }
@@ -590,7 +590,7 @@ void arm(int Arm_ID,int Arm_dir){
                 modbus_com[4]='7';
             }
             break;
-        case 4:						//µÚËÄ¸öÖá
+        case 4:						//ç¬¬å››ä¸ªè½´
             if (Arm_dir==0){
                 modbus_com[5]='3';
             }
@@ -598,7 +598,7 @@ void arm(int Arm_ID,int Arm_dir){
                 modbus_com[5]='7';
             }
             break;
-        case 5:						//µÚÎå¸öÖá
+        case 5:						//ç¬¬äº”ä¸ªè½´
             if (Arm_dir==0){
                 modbus_com[6]='3';
             }
@@ -606,7 +606,7 @@ void arm(int Arm_ID,int Arm_dir){
                 modbus_com[6]='7';
             }
             break;
-        case 6:						//µÚÁù¸öÖá
+        case 6:						//ç¬¬å…­ä¸ªè½´
             if (Arm_dir==0){
                 modbus_com[7]='3';
             }
@@ -614,7 +614,7 @@ void arm(int Arm_ID,int Arm_dir){
                 modbus_com[7]='7';
             }
             break;
-        case 7:						//¹ìµÀÉÏµÄÒÆ¶¯
+        case 7:						//è½¨é“ä¸Šçš„ç§»åŠ¨
             if (Arm_dir==0){
                 modbus_com[8]='2';
             }
@@ -626,11 +626,11 @@ void arm(int Arm_ID,int Arm_dir){
     send_Char_9(modbus_com);
 }
 
-//Ïä×ÓÏà¹Øº¯Êı
+//ç®±å­ç›¸å…³å‡½æ•°
 void box(void){
     unsigned char modbus_com[9];
-    modbus_com[0]='#';				//ÆğÊ¼·û£¬¹Ì¶¨Îª#
-    modbus_com[1]='4';				//Ïä×Ó
+    modbus_com[0]='#';				//èµ·å§‹ç¬¦ï¼Œå›ºå®šä¸º#
+    modbus_com[1]='4';				//ç®±å­
     modbus_com[2]='0';
     modbus_com[3]='0';
     modbus_com[4]='0';
@@ -638,16 +638,16 @@ void box(void){
     modbus_com[6]='0';
     modbus_com[7]='0';
     modbus_com[8]='0';
-    //1ºÅÕ¾
+    //1å·ç«™
     modbus_com[2] = '1';
     send_Char_9(modbus_com);
 }
 
-//ÎüÅÌÏà¹Øº¯Êı
+//å¸ç›˜ç›¸å…³å‡½æ•°
 void plate(int Plate_ID,int Plate_dir){
     unsigned char modbus_com[9];
-    modbus_com[0]='#';				//ÆğÊ¼·û£¬¹Ì¶¨Îª#
-    modbus_com[1]='5';				//ÎüÅÌ
+    modbus_com[0]='#';				//èµ·å§‹ç¬¦ï¼Œå›ºå®šä¸º#
+    modbus_com[1]='5';				//å¸ç›˜
     modbus_com[2]='0';
     modbus_com[3]='0';
     modbus_com[4]='0';
@@ -657,21 +657,21 @@ void plate(int Plate_ID,int Plate_dir){
     modbus_com[8]='0';
 
     switch(Plate_ID){
-        case 1:						//1ºÅÕ¾
+        case 1:						//1å·ç«™
             if(Plate_dir == 0){
                 modbus_com[2]='1';
             }else if(Plate_dir == 1){
                 modbus_com[2]='2';
             }
             break;
-        case 2:						//2ºÅÕ¾
+        case 2:						//2å·ç«™
             if(Plate_dir == 0){
                 modbus_com[3]='1';
             }else if(Plate_dir == 1){
                 modbus_com[3]='2';
             }
             break;
-        case 3:						//3ºÅÕ¾
+        case 3:						//3å·ç«™
             if(Plate_dir == 0){
                 modbus_com[4]='1';
             }else if(Plate_dir == 1){
@@ -681,11 +681,11 @@ void plate(int Plate_ID,int Plate_dir){
     send_Char_9(modbus_com);
 }
 
-//´«ËÍ´øÏà¹Øº¯Êı
+//ä¼ é€å¸¦ç›¸å…³å‡½æ•°
 void trans(int Trans_dir){
     unsigned char modbus_com[9];
-    modbus_com[0]='#';				//ÆğÊ¼·û£¬¹Ì¶¨Îª#
-    modbus_com[1]='6';				//´«ËÍ´ø
+    modbus_com[0]='#';				//èµ·å§‹ç¬¦ï¼Œå›ºå®šä¸º#
+    modbus_com[1]='6';				//ä¼ é€å¸¦
     modbus_com[2]='0';
     modbus_com[3]='0';
     modbus_com[4]='0';
@@ -694,112 +694,112 @@ void trans(int Trans_dir){
     modbus_com[7]='0';
     modbus_com[8]='0';
 
-    //´«ËÍ´ø¿ª¹Ø
+    //ä¼ é€å¸¦å¼€å…³
     if(Trans_dir == 0){
-        //´«ËÍ´ø¿ª
+        //ä¼ é€å¸¦å¼€
         modbus_com[2]='1';
         isTransOn = true;
     }else if(Trans_dir == 1){
-        //´«ËÍ´ø¹Ø
+        //ä¼ é€å¸¦å…³
         modbus_com[2]='2';
         isTransOn = false;
     }
     send_Char_9(modbus_com);
 }
 
-//×Ô¶¯Ä£Ê½£º°´Æô¶¯¼ü£¨BTNL£©£¬ÏµÍ³×Ô¶¯ÔÚ1ºÅ´«ËÍ´øÉÏ³öÎïÌå£¬È»ºó»úĞµ±Û×¥È¡ÎïÌå·Åµ½2ºÅ´«ËÍ´øÉÏ
+//è‡ªåŠ¨æ¨¡å¼ï¼šæŒ‰å¯åŠ¨é”®ï¼ˆBTNLï¼‰ï¼Œç³»ç»Ÿè‡ªåŠ¨åœ¨1å·ä¼ é€å¸¦ä¸Šå‡ºç‰©ä½“ï¼Œç„¶åæœºæ¢°è‡‚æŠ“å–ç‰©ä½“æ”¾åˆ°2å·ä¼ é€å¸¦ä¸Š
 void auto_ctl(void){
 
-    delay(100,500,50);    //ÑÓÊ±Ïû¶¶
-    box();                          //Éú³ÉÏä×Ó
-    delay(2952,500,50);    //ÑÓÊ±Ïû¶¶
-    //×¢Òâ£ºĞéÄâ³¡¾°ÖĞµÄ2ºÅºÍ3ºÅ´«ËÍ´ø²»ÄÜÁ¬Ğø½ÓÊÕ2´ÎÒÔÉÏµÄ¡°¿ª¡± ÃüÁî£¬·ñÔò»á³ö´í¡£
-    //ÔÚ´Ë´¦¼ì²â2ºÅ´«ËÍ´øÊÇ·ñÒÑ¿ªÆô£¬Èç¹û¿ªÆôÁË£¬Ìø¹ıÕâ²½
-    trans(0);              //´«ËÍ´ø¿ª
-    delay(8964,500,50);    //ÑÓÊ±Ïû¶¶
-    delay(1000,500,50);    //ÑÓÊ±Ïû¶¶
-    //»úĞµ±Û²Ù×÷
+    delay(100,500,50);    //å»¶æ—¶æ¶ˆæŠ–
+    box();                          //ç”Ÿæˆç®±å­
+    delay(2952,500,50);    //å»¶æ—¶æ¶ˆæŠ–
+    //æ³¨æ„ï¼šè™šæ‹Ÿåœºæ™¯ä¸­çš„2å·å’Œ3å·ä¼ é€å¸¦ä¸èƒ½è¿ç»­æ¥æ”¶2æ¬¡ä»¥ä¸Šçš„â€œå¼€â€ å‘½ä»¤ï¼Œå¦åˆ™ä¼šå‡ºé”™ã€‚
+    //åœ¨æ­¤å¤„æ£€æµ‹2å·ä¼ é€å¸¦æ˜¯å¦å·²å¼€å¯ï¼Œå¦‚æœå¼€å¯äº†ï¼Œè·³è¿‡è¿™æ­¥
+    trans(0);              //ä¼ é€å¸¦å¼€
+    delay(8964,500,50);    //å»¶æ—¶æ¶ˆæŠ–
+    delay(1000,500,50);    //å»¶æ—¶æ¶ˆæŠ–
+    //æœºæ¢°è‡‚æ“ä½œ
     for(int i=0;i<30;i++){
         delay(200,500,50);
-        arm(3,1);			//3ºÅÖáÄæÊ±Õë
+        arm(3,1);			//3å·è½´é€†æ—¶é’ˆ
     }
 
     for(int i=0;i<10;i++){
         delay(200,500,50);
-        arm(2,0);          //2ºÅÖáË³Ê±Õë£¬×ªËÙ3
+        arm(2,0);          //2å·è½´é¡ºæ—¶é’ˆï¼Œè½¬é€Ÿ3
     }
 
     for(int i=0;i<50;i++){
         delay(200,500,50);
-        arm(5,0);			//5ºÅÖáË³Ê±Õë£¬
+        arm(5,0);			//5å·è½´é¡ºæ—¶é’ˆï¼Œ
     }
     for(int i=0;i<17;i++){
         delay(200,500,50);
-        arm(6,1);			//6ºÅÖáÄæÊ±Õë£¬
+        arm(6,1);			//6å·è½´é€†æ—¶é’ˆï¼Œ
     }
     for(int i=0;i<18;i++){
-        delay(200,500,50); //ÑÓÊ±Ïû¶¶
-        arm(1,0);           //1ºÅÖáË³Ê±Õë£¬×ªËÙÎª3
+        delay(200,500,50); //å»¶æ—¶æ¶ˆæŠ–
+        arm(1,0);           //1å·è½´é¡ºæ—¶é’ˆï¼Œè½¬é€Ÿä¸º3
     }
     for(int i=0;i<1;i++){
         delay(200,500,50);
-        arm(2,0);          //2ºÅÖáË³Ê±Õë£¬×ªËÙ3
+        arm(2,0);          //2å·è½´é¡ºæ—¶é’ˆï¼Œè½¬é€Ÿ3
     }
-    delay(500,500,50);            //ÑÓÊ±Ïû¶¶
-    //Îü½ø
-    plate(1,0);                    //Îü
-    delay(1000,500,50);            //ÑÓÊ±Ïû¶¶
+    delay(500,500,50);            //å»¶æ—¶æ¶ˆæŠ–
+    //å¸è¿›
+    plate(1,0);                    //å¸
+    delay(1000,500,50);            //å»¶æ—¶æ¶ˆæŠ–
 
-    //»úĞµ±Û×ª
+    //æœºæ¢°è‡‚è½¬
     for(int i=0;i<3;i++){
         delay(200,500,50);
-        arm(2,1);          //2ºÅÖáÄæÊ±Õë£¬×ªËÙ3
+        arm(2,1);          //2å·è½´é€†æ—¶é’ˆï¼Œè½¬é€Ÿ3
     }
     for(int i=0;i<4;i++){
         delay(200,500,50);
-        arm(6,0);			//6ºÅÖáË³Ê±Õë£¬
+        arm(6,0);			//6å·è½´é¡ºæ—¶é’ˆï¼Œ
     }
     for(int i=0;i<33;i++){
         delay(200,500,50);
-        arm(1,1);                //1ºÅÖáÄæÊ±Õë
+        arm(1,1);                //1å·è½´é€†æ—¶é’ˆ
     }
 
 
     delay(1000,500,50);
-    plate(1,1);                //·Å
+    plate(1,1);                //æ”¾
     delay(1000,500,50);
 
 
-    //¸´Î»
+    //å¤ä½
     for(int i=0;i<13;i++){
         delay(200,500,50);
-        arm(6,0);			//6ºÅÖáÄæÊ±Õë
+        arm(6,0);			//6å·è½´é€†æ—¶é’ˆ
     }
     for(int i=0;i<50;i++){
         delay(200,500,50);
-        arm(5,1);			//5ºÅÖáÄæÊ±Õë
+        arm(5,1);			//5å·è½´é€†æ—¶é’ˆ
     }
     for(int i=0;i<8;i++){
         delay(200,500,50);
-        arm(2,1);          //2ºÅÖáÄæÊ±Õë£¬×ªËÙ3
+        arm(2,1);          //2å·è½´é€†æ—¶é’ˆï¼Œè½¬é€Ÿ3
     }
     for(int i=0;i<15;i++){
-        delay(200,500,50); //ÑÓÊ±Ïû¶¶
-        arm(1,0);           //1ºÅÖáË³Ê±Õë£¬×ªËÙÎª3
+        delay(200,500,50); //å»¶æ—¶æ¶ˆæŠ–
+        arm(1,0);           //1å·è½´é¡ºæ—¶é’ˆï¼Œè½¬é€Ÿä¸º3
     }
     for(int i=0;i<30;i++){
         delay(200,500,50);
-        arm(3,0);			//3ºÅÖáË³Ê±Õë
+        arm(3,0);			//3å·è½´é¡ºæ—¶é’ˆ
     }
 }
 
-// ÔÚLEDÉÏÏÔÊ¾Êı×Ö
+// åœ¨LEDä¸Šæ˜¾ç¤ºæ•°å­—
 void displayOnLED(int num) {
-    // ¸ù¾İÊµ¼ÊÓ²¼şºÍÏÔÊ¾·½Ê½£¬±àĞ´ÏÔÊ¾Êı×ÖµÄ´úÂë
+    // æ ¹æ®å®é™…ç¡¬ä»¶å’Œæ˜¾ç¤ºæ–¹å¼ï¼Œç¼–å†™æ˜¾ç¤ºæ•°å­—çš„ä»£ç 
     unsigned char modbus_com[9];
-    modbus_com[0]='#';				//ÆğÊ¼·û£¬¹Ì¶¨Îª#
-    modbus_com[1]='7';				//´«ËÍ´ø
-    modbus_com[2]='0';				//ÃüÁî1
+    modbus_com[0]='#';				//èµ·å§‹ç¬¦ï¼Œå›ºå®šä¸º#
+    modbus_com[1]='7';				//ä¼ é€å¸¦
+    modbus_com[2]='0';				//å‘½ä»¤1
     modbus_com[3]='0';
     modbus_com[4]='0';
     modbus_com[5]='0';
@@ -901,7 +901,7 @@ void displayOnLED(int num) {
                 modbus_com[8]='1';				//a
                 break;
         }
-        //·¢ËÍ¸öÎ»Êı
+        //å‘é€ä¸ªä½æ•°
         send_Char_9(modbus_com);
         if(tens >= 0){
             modbus_com[1] = '8';
@@ -997,7 +997,7 @@ void displayOnLED(int num) {
                     modbus_com[8]='1';				//a
                     break;
             }
-            //·¢ËÍÊ®Î»Êı
+            //å‘é€åä½æ•°
             send_Char_9(modbus_com);
         }
     }
@@ -1005,7 +1005,7 @@ void displayOnLED(int num) {
 
 }
 
-//9¸ö×Ö½ÚÊı¾İµÄ·¢ËÍº¯Êı
+//9ä¸ªå­—èŠ‚æ•°æ®çš„å‘é€å‡½æ•°
 void send_Char_9(unsigned char modbus[])
 {
     int i;
@@ -1013,17 +1013,17 @@ void send_Char_9(unsigned char modbus[])
     for(i=0;i<9;i++){
         data=modbus[i];
         send_Char(data);
-        delay(100,10,10);		//ÑÓÊ±
+        delay(100,10,10);		//å»¶æ—¶
     }
 }
 
-//µ¥¸ö×Ö½ÚÊı¾İµÄ·¢ËÍº¯Êı
+//å•ä¸ªå­—èŠ‚æ•°æ®çš„å‘é€å‡½æ•°
 void send_Char(unsigned char data){
     while((rChannel_sts_reg0&0x10)==0x10);
     rTx_Rx_FIFO0=data;
 }
 
-//UART1µÄ³õÊ¼»¯º¯Êı
+//UART1çš„åˆå§‹åŒ–å‡½æ•°
 void RS232_Init(){
     rMIO_PIN_48=0x000026E0;
     rMIO_PIN_49=0x000026E0;
@@ -1034,7 +1034,7 @@ void RS232_Init(){
     rBaud_rate_divider_reg0=6;
 }
 
-//ÑÓÊ±º¯Êı
+//å»¶æ—¶å‡½æ•°
 void delay(int n,int m,int p){
     int i,j,k;
     for(i=1;i<=n;i++){
