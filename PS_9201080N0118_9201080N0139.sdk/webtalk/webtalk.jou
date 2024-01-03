@@ -2,11 +2,11 @@
 # Webtalk v2019.1 (64-bit)
 # SW Build 2552052 on Fri May 24 14:49:42 MDT 2019
 # 
-# Start of session at: Wed Jan  3 19:31:22 2024
-# Process ID: 12036
-# Current directory: H:/HCD/PS_9201080N0118_9201080N0139/PS_9201080N0118_9201080N0139.sdk/webtalk
+# Start of session at: Wed Jan  3 20:49:35 2024
+# Process ID: 22076
+# Current directory: E:/Code/HardwareDesign/HCD/ArmController/PS_9201080N0118_9201080N0139.sdk/webtalk
 # Command line: wbtcv.exe -mode batch -source sdk_webtalk.tcl
-# Log file: H:/HCD/PS_9201080N0118_9201080N0139/PS_9201080N0118_9201080N0139.sdk/webtalk/webtalk.log
-# Journal file: H:/HCD/PS_9201080N0118_9201080N0139/PS_9201080N0118_9201080N0139.sdk/webtalk\webtalk.jou
+# Log file: E:/Code/HardwareDesign/HCD/ArmController/PS_9201080N0118_9201080N0139.sdk/webtalk/webtalk.log
+# Journal file: E:/Code/HardwareDesign/HCD/ArmController/PS_9201080N0118_9201080N0139.sdk/webtalk\webtalk.jou
 #-----------------------------------------------------------
 source sdk_webtalk.tcl

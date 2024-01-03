@@ -550,3 +550,9 @@ con
 19:30:13 INFO  : Successfully done setting XSCT server connection channel  
 19:30:14 INFO  : Successfully done setting SDK workspace  
 19:30:14 INFO  : Processing command line option -hwspec H:/HCD/PS_9201080N0118_9201080N0139/PS_9201080N0118_9201080N0139.sdk/PS_9201080N0118_wrapper.hdf.
+20:48:59 INFO  : Registering command handlers for SDK TCF services
+20:48:59 INFO  : Launching XSCT server: xsct.bat -interactive E:\Code\HardwareDesign\HCD\ArmController\PS_9201080N0118_9201080N0139.sdk\temp_xsdb_launch_script.tcl
+20:49:02 INFO  : XSCT server has started successfully.
+20:49:03 INFO  : Successfully done setting XSCT server connection channel  
+20:49:03 INFO  : Successfully done setting SDK workspace  
+20:49:03 INFO  : Processing command line option -hwspec E:/Code/HardwareDesign/HCD/ArmController/PS_9201080N0118_9201080N0139.sdk/PS_9201080N0118_wrapper.hdf.

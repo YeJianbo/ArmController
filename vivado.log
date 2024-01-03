@@ -2,28 +2,26 @@
 # Vivado v2019.1 (64-bit)
 # SW Build 2552052 on Fri May 24 14:49:42 MDT 2019
 # IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
-# Start of session at: Wed Jan  3 19:29:36 2024
-# Process ID: 16768
-# Current directory: H:/HCD/PS_9201080N0118_9201080N0139
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent28048 H:\HCD\PS_9201080N0118_9201080N0139\PS_9201080N0118_9201080N0139.xpr
-# Log file: H:/HCD/PS_9201080N0118_9201080N0139/vivado.log
-# Journal file: H:/HCD/PS_9201080N0118_9201080N0139\vivado.jou
+# Start of session at: Wed Jan  3 20:48:12 2024
+# Process ID: 29400
+# Current directory: E:/Code/HardwareDesign/HCD/ArmController
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent28744 E:\Code\HardwareDesign\HCD\ArmController\PS_9201080N0118_9201080N0139.xpr
+# Log file: E:/Code/HardwareDesign/HCD/ArmController/vivado.log
+# Journal file: E:/Code/HardwareDesign/HCD/ArmController\vivado.jou
 #-----------------------------------------------------------
 start_gui
-open_project H:/HCD/PS_9201080N0118_9201080N0139/PS_9201080N0118_9201080N0139.xpr
+open_project E:/Code/HardwareDesign/HCD/ArmController/PS_9201080N0118_9201080N0139.xpr
 INFO: [Project 1-313] Project file moved from 'C:/Users/lenovo/Desktop/HCD/PS_9201080N0118_9201080N0139' since last save.
 Scanning sources...
 Finished scanning sources
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'E:/Xilinx/Vivado/2019.1/data/ip'.
-open_project: Time (s): cpu = 00:00:02 ; elapsed = 00:00:07 . Memory (MB): peak = 987.516 ; gain = 110.391
+open_project: Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 739.105 ; gain = 103.484
 update_compile_order -fileset sources_1
-exit
-INFO: [Common 17-206] Exiting Vivado at Wed Jan  3 19:31:25 2024...
-_9201080N0139.sdk -hwspec H:/HCD/PS_9201080N0118_9201080N0139/PS_9201080N0118_9201080N0139.sdk/PS_9201080N0118_wrapper.hdf
+launch_sdk -workspace E:/Code/HardwareDesign/HCD/ArmController/PS_9201080N0118_9201080N0139.sdk -hwspec E:/Code/HardwareDesign/HCD/ArmController/PS_9201080N0118_9201080N0139.sdk/PS_9201080N0118_wrapper.hdf
 INFO: [Vivado 12-393] Launching SDK...
-INFO: [Vivado 12-417] Running xsdk -workspace H:/HCD/PS_9201080N0118_9201080N0139/PS_9201080N0118_9201080N0139.sdk -hwspec H:/HCD/PS_9201080N0118_9201080N0139/PS_9201080N0118_9201080N0139.sdk/PS_9201080N0118_wrapper.hdf
+INFO: [Vivado 12-417] Running xsdk -workspace E:/Code/HardwareDesign/HCD/ArmController/PS_9201080N0118_9201080N0139.sdk -hwspec E:/Code/HardwareDesign/HCD/ArmController/PS_9201080N0118_9201080N0139.sdk/PS_9201080N0118_wrapper.hdf
 INFO: [Vivado 12-3157] SDK launch initiated. Please check console for any further messages.
 exit
-INFO: [Common 17-206] Exiting Vivado at Wed Jan  3 19:30:32 2024...
+INFO: [Common 17-206] Exiting Vivado at Wed Jan  3 20:50:33 2024...

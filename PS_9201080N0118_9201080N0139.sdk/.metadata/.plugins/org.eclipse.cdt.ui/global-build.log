@@ -1027,3 +1027,24 @@ arm-none-eabi-size PS_9201080N0118_9201080N0139_Project.elf  |tee "PS_9201080N01
   30504	   1144	  24376	  56024	   dad8	PS_9201080N0118_9201080N0139_Project.elf
 'Finished building: PS_9201080N0118_9201080N0139_Project.elf.size'
 ' '
+20:49:21 **** Auto Build of configuration Debug for project PS_9201080N0118_9201080N0139_Project ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+'Building file: ../src/helloworld.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/helloworld.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -I../../PS_9201080N0118_9201080N0139/ps7_cortexa9_0/include -MMD -MP -MF"src/helloworld.d" -MT"src/helloworld.o" -o "src/helloworld.o" "../src/helloworld.c"
+../src/helloworld.c:67:1: error: unknown type name 'bool'; did you mean '_Bool'?
+ bool isTransOn = false;
+ ^~~~
+ _Bool
+../src/helloworld.c:67:18: error: 'false' undeclared here (not in a function); did you mean 'flsl'?
+ bool isTransOn = false;
+                  ^~~~~
+                  flsl
+../src/helloworld.c: In function 'trans':
+../src/helloworld.c:701:21: error: 'true' undeclared (first use in this function)
+         isTransOn = true;
+                     ^~~~
+../src/helloworld.c:701:21: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [src/subdir.mk:26: src/helloworld.o] Error 1
