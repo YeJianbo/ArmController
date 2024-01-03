@@ -1,0 +1,15 @@
+#-----------------------------------------------------------
+# Vivado v2019.1 (64-bit)
+# SW Build 2552052 on Fri May 24 14:49:42 MDT 2019
+# IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
+# Start of session at: Wed Jan  3 19:29:36 2024
+# Process ID: 16768
+# Current directory: H:/HCD/PS_9201080N0118_9201080N0139
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent28048 H:\HCD\PS_9201080N0118_9201080N0139\PS_9201080N0118_9201080N0139.xpr
+# Log file: H:/HCD/PS_9201080N0118_9201080N0139/vivado.log
+# Journal file: H:/HCD/PS_9201080N0118_9201080N0139\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project H:/HCD/PS_9201080N0118_9201080N0139/PS_9201080N0118_9201080N0139.xpr
+update_compile_order -fileset sources_1
+launch_sdk -workspace H:/HCD/PS_9201080N0118_9201080N0139/PS_9201080N0118_9201080N0139.sdk -hwspec H:/HCD/PS_9201080N0118_9201080N0139/PS_9201080N0118_9201080N0139.sdk/PS_9201080N0118_wrapper.hdf
